@@ -13,7 +13,9 @@
     "url": "https://github.com/SKempin/reactjs-tmdb-app.git"
   },
   "scripts": {
-    "start": "gulp watch"
+    "start": "gulp watch",
+    "build": "gulp build",
+    "bowerInstall": "bower install --allow-root"
   },
   "dependencies": {
     "bloodhound-js": "^1.2.1",
