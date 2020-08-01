@@ -120,17 +120,17 @@ gulp.task('clean', () => {
 
 gulp.task('bundle', series(parallel('html', 'styles', 'scripts', 'images', 'fonts', 'extras')));
 
-gulp.task('clean-bundle', sync(['clean', 'bundle']));
+gulp.task('clean-bundle', series('clean', 'bundle'));
 
 gulp.task('build', parallel('clean-bundle'), bundler.stop.bind(bundler));
 
-gulp.task('build:production', sync(['set-production', 'build', 'minify', 'copy-docs']));
+gulp.task('build:production',series('set-production', 'build', 'minify', 'copy-docs'));
 
-gulp.task('serve:production', sync(['build:production', 'serve']));
+gulp.task('serve:production', series('build:production', 'serve'));
 
 gulp.task('default', series('build'));
 
-gulp.task('watch', sync(['clean-bundle', 'serve']), function() {
+gulp.task('watch', series('clean-bundle', 'serve'), function() {
     bundler.watch();
     gulp.watch('app/scripts/**/*.js', ['scripts']);
     gulp.watch('app/*.html', ['html']);
