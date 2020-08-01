@@ -114,15 +114,19 @@ gulp.task('copy-docs', function() {
 
 gulp.task('minify', series(parallel('minify:js', 'minify:css')));
 
-gulp.task('clean', () => {
-    return del.bind(null, ['dist', 'docs'])
+gulp.task('clean', (done) => {
+    del.bind(null, ['dist', 'docs'])
+    done();
 });
 
 gulp.task('bundle', series(parallel('html', 'styles', 'scripts', 'images', 'fonts', 'extras')));
 
 gulp.task('clean-bundle', series('clean', 'bundle'));
 
-gulp.task('build', parallel('clean-bundle'), bundler.stop.bind(bundler));
+gulp.task('build', parallel('clean-bundle'), (done) => {
+    bundler.stop.bind(bundler);
+    done();
+}); 
 
 gulp.task('build:production',series('set-production', 'build', 'minify', 'copy-docs'));
 
