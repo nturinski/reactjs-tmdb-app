@@ -120,7 +120,7 @@ gulp.task('clean', () => {
 
 gulp.task('bundle', series(parallel('html', 'styles', 'scripts', 'images', 'fonts', 'extras')));
 
-gulp.task('clean-bundle', sync(parallel('clean', 'bundle'));
+gulp.task('clean-bundle', sync(parallel('clean', 'bundle')));
 
 gulp.task('build', parallel('clean-bundle'), bundler.stop.bind(bundler));
 
